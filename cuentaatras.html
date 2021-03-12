@@ -1,0 +1,71 @@
+<html>
+
+<head>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            var segundos = Number($("#segundos").html());
+            var minutos = Number($("#minutos").html());
+            var newSegundos = segundos;
+            var newMinutos = minutos;
+
+            setInterval(function () {
+                if (newSegundos <= 0 && newMinutos <= 0) {
+                    $(".cuentaatras").hide();
+                    $(".empezamos").show();
+                    $(".empezamos").css({ "display": "block" });
+                } else {
+                    $(".cuentaatras").show();
+                    $(".empezamos").hide();
+
+                    newSegundos = newSegundos - 1;
+                    if (newSegundos < 0) {
+                        newSegundos = 59;
+                        newMinutos = (newMinutos - 1 < 0) ? 0 : newMinutos - 1;
+                    }
+
+                    if (newSegundos < 10)
+                        $("#segundos").html("0" + newSegundos);
+                    else
+                        $("#segundos").html(newSegundos);
+
+                    if (newMinutos < 10)
+                        $("#minutos").html("0" + newMinutos);
+                    else
+                        $("#minutos").html(newMinutos);
+                }
+            }, 1000);
+        });
+    </script>
+    <style>
+        .cuentaatras {
+            color: grey;
+            font-size: 100pt;
+            width: 50%;
+            display: block;
+            margin: 0 auto;
+        }
+
+        .empezamos {
+            display: none;
+            width: 85%;
+            margin: 0 auto;
+            color: #c9c9c9;
+            font-size: 50pt;
+        }
+    </style>
+
+</head>
+
+<body>
+    <div>
+        <span class="cuentaatras">
+            <span id="minutos">01</span>:<span id="segundos">06</span>
+        </span>
+        <span class="empezamos">
+            ¡Empezamos ya, gente!
+        </span>
+    </div>
+</body>
+
+</html>
