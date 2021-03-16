@@ -4,11 +4,14 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script type="text/javascript">
         $(document).ready(function () {
-            var segundos = Number($("#segundos").html());
-            var minutos = Number($("#minutos").html());
+            var segundos = cargarTiempo('seg');
+            var minutos = cargarTiempo('min');
+
+            $("#segundos").html(newSegundos);
+            $("#minutos").html(newMinutos);
+
             var newSegundos = segundos;
             var newMinutos = minutos;
-
             setInterval(function () {
                 if (newSegundos <= 0 && newMinutos <= 0) {
                     $(".cuentaatras").hide();
@@ -36,6 +39,17 @@
                 }
             }, 1000);
         });
+
+        function cargarTiempo(param) {
+            const queryString = window.location.search;
+            const urlParams = new URLSearchParams(queryString);
+
+            let val = urlParams.get(param);
+            if (val == null)
+                return 0;
+            else
+                return Number(val);
+        }
     </script>
     <style>
         .cuentaatras {
@@ -58,9 +72,9 @@
 </head>
 
 <body>
-    <div>
+    <div class="cuentaatrasBody">
         <span class="cuentaatras">
-            <span id="minutos">01</span>:<span id="segundos">06</span>
+            <span id="minutos"></span>:<span id="segundos"></span>
         </span>
         <span class="empezamos">
             ¡Empezamos ya, gente!
